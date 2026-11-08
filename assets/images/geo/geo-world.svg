@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" font-family="Arial, 'Microsoft YaHei', sans-serif">
+  <rect width="720" height="480" fill="#ffffff"/>
+  <text x="24" y="30" font-size="20" font-weight="bold" fill="#1f2937">七大洲 · 四大洋 相对方位（自制示意）</text>
+  <text x="24" y="52" font-size="13" fill="#b91c1c">⚠ 仅示意相对位置与分界，非真实轮廓；考试识图请以课本《世界海陆分布图》为准</text>
+
+  <rect x="60" y="66" width="600" height="360" fill="#eff6ff" stroke="#93c5fd"/>
+  <!-- 赤道 -->
+  <line x1="60" y1="246" x2="660" y2="246" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="8 5"/>
+  <text x="66" y="242" font-size="11" fill="#dc2626">赤道</text>
+  <!-- 20°W / 160°E 分界（示意） -->
+  <line x1="270" y1="66" x2="270" y2="426" stroke="#7c3aed" stroke-width="1.3" stroke-dasharray="6 5"/>
+  <text x="274" y="82" font-size="11" fill="#7c3aed">20°W</text>
+
+  <g fill="#86efac" stroke="#15803d" stroke-width="1.5" rx="6">
+    <rect x="80" y="100" width="150" height="110" rx="8"/>
+    <rect x="130" y="228" width="92" height="118" rx="8"/>
+    <rect x="305" y="100" width="100" height="70" rx="8"/>
+    <rect x="412" y="92" width="215" height="128" rx="8"/>
+    <rect x="305" y="190" width="112" height="140" rx="8"/>
+    <rect x="545" y="250" width="100" height="72" rx="8"/>
+    <rect x="80" y="375" width="555" height="42" rx="8"/>
+  </g>
+  <g font-size="14" font-weight="bold" fill="#14532d" text-anchor="middle">
+    <text x="155" y="160">北美洲</text><text x="176" y="292">南美洲</text>
+    <text x="355" y="140">欧洲</text><text x="519" y="160">亚洲</text>
+    <text x="361" y="265">非洲</text><text x="595" y="292">大洋洲</text>
+    <text x="357" y="402">南极洲（纬度最高、跨经度最广）</text>
+  </g>
+  <g font-size="13" font-weight="bold" fill="#1d4ed8">
+    <text x="330" y="82">北冰洋</text>
+    <text x="66" y="352">太平洋</text><text x="635" y="230">太</text><text x="635" y="248">平</text><text x="635" y="266">洋</text>
+    <text x="232" y="200">大</text><text x="232" y="218">西</text><text x="232" y="236">洋</text>
+    <text x="438" y="300">印度洋</text>
+  </g>
+
+  <g font-size="12.5" fill="#1f2937">
+    <text x="24" y="446">面积排序：七大洲「亚非北南美，南极欧大洋」；四大洋「太大印北」。海陆比例约 71% 海洋 : 29% 陆地，任何半球都是海洋面积更大。</text>
+    <text x="24" y="468">分界线：亚欧—乌拉尔山、乌拉尔河、里海、大高加索山、黑海、土耳其海峡（乌乌里大黑土）；亚非—苏伊士运河；南北美—巴拿马运河；亚北美—白令海峡。</text>
+  </g>
+</svg>

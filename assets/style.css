@@ -206,6 +206,14 @@ th { background: var(--bg-soft); font-weight: 650; }
 .quiz-result.ok { color: var(--ok); }
 .quiz-result.no { color: var(--err); }
 .quiz-result .ans-key { color: var(--ink-2); font-weight: 400; }
+/* 地理自编选择题的解析（其他学科无 tip 字段时不显示） */
+.quiz-tip { margin-top: 8px; font-size: 13px; font-weight: 400; }
+.quiz-tip summary { cursor: pointer; color: var(--accent); list-style: none; }
+.quiz-tip summary::-webkit-details-marker { display: none; }
+.quiz-tip summary::before { content: "▸ "; }
+.quiz-tip[open] summary::before { content: "▾ "; }
+.quiz-tip > div { margin-top: 7px; padding: 9px 12px; line-height: 1.75; color: var(--ink-2);
+  background: var(--bg-soft, #f8fafc); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
 
 /* ---------- 答案对照 ---------- */
 .qa details { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 10px; box-shadow: var(--shadow); }
@@ -250,8 +258,8 @@ th { background: var(--bg-soft); font-weight: 650; }
 .focus-actions { display: flex; gap: 8px; justify-content: space-between; padding: 12px 16px 16px; border-top: 1px solid var(--line); }
 
 /* ---------- 整页结构图 / 知识梳理 ---------- */
-.gallery { display: grid; gap: 18px; }
-.slide-fig { margin: 0; padding: 14px 16px 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.gallery { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.slide-fig { margin: 0; min-width: 0; padding: 14px 16px 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 .slide-fig figcaption { margin-bottom: 12px; font-size: 15.5px; font-weight: 700; color: var(--ink); }
 .slide-img-link { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
 .slide-img-link img { display: block; width: 100%; height: auto; }

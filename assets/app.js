@@ -3,7 +3,7 @@
   'use strict';
 
   var REPO_URL = 'https://github.com/Enzo-River/chuyi-qizhong-review';
-  var ORDER = ['bio', 'his', 'df'];
+  var ORDER = ['bio', 'his', 'df', 'geo'];
   var D = window.REVIEW_DATA || {};
   var SUBJECTS = ORDER.map(function (k) { return D[k]; }).filter(Boolean);
   var STORE = 'chu1_review_v1';
@@ -75,8 +75,8 @@
     var st = stats();
     var h = '<div class="wrap"><section class="hero">' +
       '<h1>初一上 · 期中在线复习</h1>' +
-      '<p class="lead">生物 · 历史 · 道法　三科资料分门别类，边看边测，随时抽背。</p>' +
-      '<p class="meta">整理自 2026-2027 学年第一学期期中复习资料　·　共 ' + SUBJECTS.length + ' 科 / ' +
+      '<p class="lead">生物 · 历史 · 道法 · 地理　四科资料分门别类，边看边测，随时抽背。</p>' +
+      '<p class="meta">生物 / 历史 / 道法整理自 2026-2027 学年期中复习资料，地理按湘教版 2024 版教材自主整理　·　共 ' + SUBJECTS.length + ' 科 / ' +
       SUBJECTS.reduce(function (n, s) { return n + s.sections.length; }, 0) + ' 个板块</p>' +
       '</section>' + progressBar(st);
 
@@ -102,12 +102,12 @@
     h += '</div>';
 
     h += '<section class="howto"><h3>怎么用</h3><ol>' +
-      '<li><b>先看知识提纲</b>：按章节折叠展开，表格与原文一致；点「遮罩速记」可把要点盖住边回忆边对照。</li>' +
-      '<li><b>再做填空自测</b>：生物填空题由「空白版 ↔ 答案版」逐行比对生成，先想答案再点开核对。</li>' +
-      '<li><b>刷题与对照</b>：两套生物复习卷 + 两套道法校本卷的选择题可即时判分；非选择题可展开看参考答案。</li>' +
-      '<li><b>抽背</b>：道法必考 20 题、历史 42 张快问快答卡，可随机抽取、逐张标记已掌握。</li>' +
-      '<li><b>看图复习</b>：原卷的漫画、显微镜图、细胞结构图等已按题号与知识点嵌回站内，点图片可放大；历史 PPT 的整页结构图在「结构图 · 知识梳理」里另有原图与文字转录。</li>' +
-      '<li><b>查原件</b>：每科最后一栏提供原 Word / PPT / PDF 下载，可下载打印。</li>' +
+      '<li><b>先看知识提纲</b>：按章节折叠展开，点「遮罩速记」盖住要点边回忆边对照。</li>' +
+      '<li><b>再自测</b>：生物填空由「空白版 ↔ 答案版」逐行比对生成；地理另配 45 空填空、52 张抽背卡。</li>' +
+      '<li><b>刷题与对照</b>：生物、道法原卷选择题与地理自编选择题可即时判分；非选择题可展开看参考答案，地理每题附解析。</li>' +
+      '<li><b>抽背</b>：道法必考 20 题、历史 42 张卡、地理 52 张卡，可随机抽取、逐张标记已掌握。</li>' +
+      '<li><b>看图复习</b>：生物 / 道法原卷配图、历史 PPT 整页结构图已嵌回站内；地理另配 6 张自制识图示意图，点图可放大。</li>' +
+      '<li><b>查原件</b>：生物、历史、道法提供原 Word / PPT / PDF 下载；地理为按教材自主整理，无校内原件。</li>' +
       '</ol></section></div>';
     return h;
   }
@@ -230,7 +230,9 @@
           '" data-ans="' + it.ans + '"' + (chosen ? ' disabled' : '') + '><span class="k">' + o.k + '</span><span>' + esc(o.v) + '</span></button>';
       });
       h += '</div><div class="quiz-result ' + (chosen ? (ok ? 'ok' : 'no') : 'hidden') + '">' +
-        (chosen ? (ok ? '✓ 回答正确' : '✗ 答错了，正确答案 ' + it.ans) : '') + '</div></div>';
+        (chosen ? (ok ? '✓ 回答正确' : '✗ 答错了，正确答案 ' + it.ans) : '') + '</div>' +
+        (it.tip ? '<details class="quiz-tip"><summary>查看解析</summary><div>' + esc(it.tip) + '</div></details>' : '') +
+        '</div>';
     });
     return h + '</div>';
   }
@@ -320,7 +322,7 @@
 
   /* ---------------- 学科页 ---------------- */
   function renderSubject(sub, sec) {
-    var h = '<div class="wrap"><div class="sub-head"><a class="back-link" href="#/">← 返回三科总览</a>' +
+    var h = '<div class="wrap"><div class="sub-head"><a class="back-link" href="#/">← 返回学科总览</a>' +
       '<h1>' + sub.emoji + '　' + esc(sub.name) + '</h1><p>' + esc(sub.sub) + '</p></div>' +
       '<nav class="tabs">';
     sub.sections.forEach(function (s) {
@@ -389,6 +391,7 @@
           if (it.q) add('第' + (it.no || '') + '题 ' + it.q);
           if (it.a) add(Array.isArray(it.a) ? it.a.join(' ') : it.a);
           if (it.opts) add(it.opts.map(function (o) { return o.k + '.' + o.v; }).join(' '));
+          if (it.tip) add(it.tip);
           if (it.era) add(it.era + ' ' + it.year + ' ' + it.tag);
           if (it.name) add(it.name);
           (it.imgs || []).forEach(function (f) { add(f.cap); });
@@ -407,7 +410,7 @@
   function runSearch(q) {
     q = q.trim();
     var box = el('searchResults');
-    if (!q) { box.innerHTML = '<p class="muted">输入关键词，例如「显微镜」「分封制」「友谊」。</p>'; return; }
+    if (!q) { box.innerHTML = '<p class="muted">输入关键词，例如「显微镜」「分封制」「友谊」「经纬网」。</p>'; return; }
     var low = q.toLowerCase(), hits = [];
     for (var i = 0; i < SEARCH.length && hits.length < 50; i++) {
       if (SEARCH[i].text.toLowerCase().indexOf(low) >= 0) hits.push(SEARCH[i]);

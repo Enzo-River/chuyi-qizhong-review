@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470" font-family="Arial, 'Microsoft YaHei', sans-serif">
+  <rect width="720" height="470" fill="#ffffff"/>
+  <text x="24" y="32" font-size="20" font-weight="bold" fill="#1f2937">经纬网定位 · 方向判读（自制示意）</text>
+  <text x="24" y="54" font-size="13" fill="#6b7280">经线指示南北，纬线指示东西；先看经纬网，再看指向标，都没有才用「上北下南、左西右东」</text>
+
+  <rect x="80" y="80" width="540" height="300" fill="#f8fafc" stroke="#cbd5e1"/>
+  <!-- 纬线 -->
+  <g stroke="#94a3b8" stroke-width="1">
+    <line x1="80" y1="80" x2="620" y2="80"/><line x1="80" y1="130" x2="620" y2="130"/>
+    <line x1="80" y1="180" x2="620" y2="180"/><line x1="80" y1="280" x2="620" y2="280"/>
+    <line x1="80" y1="330" x2="620" y2="330"/><line x1="80" y1="380" x2="620" y2="380"/>
+  </g>
+  <!-- 经线 -->
+  <g stroke="#94a3b8" stroke-width="1">
+    <line x1="170" y1="80" x2="170" y2="380"/><line x1="260" y1="80" x2="260" y2="380"/>
+    <line x1="440" y1="80" x2="440" y2="380"/><line x1="530" y1="80" x2="530" y2="380"/>
+  </g>
+  <!-- 赤道 / 本初子午线 -->
+  <line x1="80" y1="230" x2="620" y2="230" stroke="#dc2626" stroke-width="2.5"/>
+  <line x1="350" y1="80" x2="350" y2="380" stroke="#1d4ed8" stroke-width="2.5"/>
+  <!-- 20°W 东西半球分界 -->
+  <line x1="260" y1="80" x2="260" y2="380" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8 5"/>
+
+  <g font-size="12" fill="#475569" text-anchor="middle">
+    <text x="80" y="74">60°W</text><text x="170" y="74">40°W</text><text x="260" y="74">20°W</text>
+    <text x="350" y="74">0°</text><text x="440" y="74">20°E</text><text x="530" y="74">40°E</text><text x="620" y="74">60°E</text>
+  </g>
+  <g font-size="12" fill="#475569" text-anchor="end">
+    <text x="74" y="84">60°N</text><text x="74" y="134">40°N</text><text x="74" y="184">20°N</text>
+    <text x="74" y="234" fill="#dc2626" font-weight="bold">0° 赤道</text><text x="74" y="284">20°S</text>
+    <text x="74" y="334">40°S</text><text x="74" y="384">60°S</text>
+  </g>
+
+  <g fill="#b91c1c" font-weight="bold" font-size="15">
+    <circle cx="260" cy="180" r="7"/><text x="272" y="176">A（20°N，20°W）</text>
+    <circle cx="530" cy="130" r="7"/><text x="468" y="115">B（40°N，40°E）</text>
+    <circle cx="440" cy="280" r="7"/><text x="452" y="300">C（20°S，20°E）</text>
+    <circle cx="350" cy="330" r="7"/><text x="362" y="350">D（40°S，0°）</text>
+  </g>
+
+  <g font-size="13" fill="#1f2937">
+    <text x="24" y="412">① 纬度向北增大为北纬 N，向南增大为南纬 S；经度向东增大为东经 E，向西增大为西经 W。</text>
+    <text x="24" y="434">② 东西半球分界是 20°W 与 160°E（紫色虚线为 20°W）：西经比 20°W 小、东经比 160°E 小 → 东半球。</text>
+    <text x="24" y="456" fill="#6b7280">③ 图中 A 在 C 的西北方向；B 在 A 的东北方向。南北半球以赤道为界。</text>
+  </g>
+</svg>
