@@ -106,7 +106,7 @@
       '<li><b>再做填空自测</b>：生物填空题由「空白版 ↔ 答案版」逐行比对生成，先想答案再点开核对。</li>' +
       '<li><b>刷题与对照</b>：两套生物复习卷 + 两套道法校本卷的选择题可即时判分；非选择题可展开看参考答案。</li>' +
       '<li><b>抽背</b>：道法必考 20 题、历史 42 张快问快答卡，可随机抽取、逐张标记已掌握。</li>' +
-      '<li><b>查原件</b>：每科最后一栏提供原 Word / PPT / PDF 下载，试卷插图和结构图以原件为准。</li>' +
+      '<li><b>查原件与结构图</b>：历史 PPT 的整页结构图在「结构图 · 知识梳理」里可点开放大、看文字转录；每科最后一栏提供原 Word / PPT / PDF 下载，试卷插图以原件为准。</li>' +
       '</ol></section></div>';
     return h;
   }
@@ -270,8 +270,25 @@
     return h + '</div><p class="muted" style="margin-top:14px;font-size:13px">提示：浏览器不能直接预览 docx / pptx，点链接会下载到本地，用 Word / WPS / PowerPoint 打开即可看到试卷插图。</p>';
   }
 
+  function renderGallery(sec) {
+    var h = '<div class="gallery">';
+    sec.items.forEach(function (it) {
+      h += '<figure class="slide-fig"><figcaption>' + esc(it.q) + '</figcaption>' +
+        '<a class="slide-img-link" href="' + esc(it.src) + '" target="_blank" rel="noopener" title="点击在新标签查看原图">' +
+        '<img src="' + esc(it.src) + '" alt="' + esc(it.alt || it.q) + '" loading="lazy"></a>' +
+        '<p class="muted slide-tip">点击图片在新标签打开原图，可放大查看</p>';
+      if (it.a) {
+        h += '<details class="slide-text"><summary>文字要点（按原图逐字转录，可全站搜索）</summary>' +
+          '<div class="slide-text-body">' + esc(it.a) + '</div></details>';
+      }
+      h += '</figure>';
+    });
+    return h + '</div>';
+  }
+
   var RENDERERS = { notes: renderNotes, fill: renderFill, mcq: renderMcq, qa: renderQa,
-                    cards: renderCards, timeline: renderTimeline, files: renderFiles };
+                    cards: renderCards, timeline: renderTimeline, files: renderFiles,
+                    gallery: renderGallery };
 
   /* ---------------- 学科页 ---------------- */
   function renderSubject(sub, sec) {
