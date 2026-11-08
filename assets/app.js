@@ -106,9 +106,32 @@
       '<li><b>再做填空自测</b>：生物填空题由「空白版 ↔ 答案版」逐行比对生成，先想答案再点开核对。</li>' +
       '<li><b>刷题与对照</b>：两套生物复习卷 + 两套道法校本卷的选择题可即时判分；非选择题可展开看参考答案。</li>' +
       '<li><b>抽背</b>：道法必考 20 题、历史 42 张快问快答卡，可随机抽取、逐张标记已掌握。</li>' +
-      '<li><b>查原件与结构图</b>：历史 PPT 的整页结构图在「结构图 · 知识梳理」里可点开放大、看文字转录；每科最后一栏提供原 Word / PPT / PDF 下载，试卷插图以原件为准。</li>' +
+      '<li><b>看图复习</b>：原卷的漫画、显微镜图、细胞结构图等已按题号与知识点嵌回站内，点图片可放大；历史 PPT 的整页结构图在「结构图 · 知识梳理」里另有原图与文字转录。</li>' +
+      '<li><b>查原件</b>：每科最后一栏提供原 Word / PPT / PDF 下载，可下载打印。</li>' +
       '</ol></section></div>';
     return h;
+  }
+
+  /* ---------------- 原卷配图 ---------------- */
+  function figLink(f, showCap) {
+    return '<a class="fig-link" href="' + esc(f.src) + '" target="_blank" rel="noopener" ' +
+      'title="点击在新标签打开原图，可放大查看">' +
+      '<img src="' + esc(f.src) + '" alt="' + esc(f.cap || '原卷配图') + '" loading="lazy">' +
+      (showCap && f.cap ? '<span class="fig-cap">' + esc(f.cap) + '</span>' : '') + '</a>';
+  }
+
+  function qFigs(imgs) {
+    if (!imgs || !imgs.length) return '';
+    return '<div class="q-figs"><div class="fig-label">🖼 原卷配图 · 点击放大</div>' +
+      '<div class="fig-grid">' + imgs.map(function (f) { return figLink(f, false); }).join('') + '</div></div>';
+  }
+
+  function figureStrip(figures) {
+    if (!figures || !figures.items || !figures.items.length) return '';
+    return '<details class="group fig-strip"><summary>' + esc(figures.title) + '</summary>' +
+      '<div class="group-body"><div class="fig-grid wide">' +
+      figures.items.map(function (f) { return figLink(f, true); }).join('') +
+      '</div><p class="muted slide-tip">以上为原始 Word 文档内嵌配图，按原文顺序排列；点开可放大。</p></div></details>';
   }
 
   /* ---------------- 各类板块渲染 ---------------- */
@@ -131,6 +154,7 @@
           });
           h += '</table></div>';
         } else if (b.t === 'note') h += '<p><span class="note-line">' + esc(b.text) + '</span></p>';
+        else if (b.t === 'img') h += '<figure class="inline-fig">' + figLink(b, true) + '</figure>';
       });
       h += '</div></details>';
     });
@@ -193,7 +217,8 @@
       var id = itemId(sub.id, sec.id, i), chosen = S.quiz[id], ok = chosen === it.ans;
       h += '<div class="card quiz-card" data-no="' + it.no + '" data-wrong="' + (chosen && !ok ? '1' : '0') + '">' +
         '<div class="card-head"><div class="q-text"><b>第 ' + it.no + ' 题</b>　' + esc(it.q) + '</div>' +
-        '<span class="badge ' + (ok ? 'ok' : '') + '">' + (chosen ? (ok ? '✓ 答对' : '✗ 答错') : '未作答') + '</span></div><div class="opts">';
+        '<span class="badge ' + (ok ? 'ok' : '') + '">' + (chosen ? (ok ? '✓ 答对' : '✗ 答错') : '未作答') + '</span></div>' +
+        qFigs(it.imgs) + '<div class="opts">';
       it.opts.forEach(function (o) {
         var cls = 'opt';
         if (chosen) {
@@ -214,10 +239,13 @@
     var h = '<div class="qa">';
     sec.items.forEach(function (it, i) {
       var id = itemId(sub.id, sec.id, i), ok = !!S.done[id];
-      h += '<details><summary>' + esc(it.q) + (ok ? '　<span class="badge ok">✓ 已掌握</span>' : '') + '</summary>' +
+      h += '<div class="qa-item' + (ok ? ' mastered' : '') + '">' +
+        '<div class="qa-q">' + esc(it.q) + (ok ? '　<span class="badge ok">✓ 已掌握</span>' : '') + '</div>' +
+        qFigs(it.imgs) +
+        '<details class="qa-ans"><summary>展开参考答案</summary>' +
         '<div class="a-body">' + esc(it.a) +
         '<div class="card-actions"><button class="btn small ' + (ok ? 'on' : '') + '" data-act="master" data-id="' + esc(id) + '">' +
-        (ok ? '✓ 已掌握' : '标记已掌握') + '</button></div></div></details>';
+        (ok ? '✓ 已掌握' : '标记已掌握') + '</button></div></div></details></div>';
     });
     return h + '</div>';
   }
@@ -302,6 +330,7 @@
     h += '</nav><div class="section-head"><h2>' + esc(sec.title) + '</h2><p>' + esc(sec.desc) +
       (sec.source ? '　<span class="source-tag">来源：' + esc(sec.source) + '</span>' : '') + '</p></div>';
     h += (RENDERERS[sec.kind] || function () { return '<p class="muted">暂不支持的板块类型</p>'; })(sec, sub);
+    h += figureStrip(sec.figures);
     h += '</div>';
     return h;
   }
@@ -351,7 +380,10 @@
         };
         if (sec.kind === 'notes') sec.groups.forEach(function (g) {
           add(g.title);
-          g.blocks.forEach(function (b) { add(b.t === 'p' ? b.text : b.t === 'note' ? b.text : (b.rows || []).map(function (r) { return r.join(' '); }).join(' ')); });
+          g.blocks.forEach(function (b) {
+            add(b.t === 'p' || b.t === 'note' || b.t === 'img' ? b.text || b.cap :
+                (b.rows || []).map(function (r) { return r.join(' '); }).join(' '));
+          });
         });
         else if (sec.items) sec.items.forEach(function (it) {
           if (it.q) add('第' + (it.no || '') + '题 ' + it.q);
@@ -359,7 +391,9 @@
           if (it.opts) add(it.opts.map(function (o) { return o.k + '.' + o.v; }).join(' '));
           if (it.era) add(it.era + ' ' + it.year + ' ' + it.tag);
           if (it.name) add(it.name);
+          (it.imgs || []).forEach(function (f) { add(f.cap); });
         });
+        if (sec.figures) (sec.figures.items || []).forEach(function (f) { add(f.cap); });
         if (sec.poem) add(sec.poem);
       });
     });
