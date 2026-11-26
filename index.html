@@ -15,6 +15,7 @@
     <button class="icon-btn" id="searchBtn" title="全站搜索" aria-label="全站搜索">🔍 <span>搜索</span></button>
     <button class="icon-btn" id="themeBtn" title="切换深浅色" aria-label="切换深浅色">🌙</button>
     <a class="icon-btn" id="githubLink" href="#" target="_blank" rel="noopener" title="在 GitHub 查看源码" aria-label="GitHub">GH</a>
+    <button class="icon-btn" id="lockBtnTop" title="锁定本站" aria-label="锁定本站">🔒</button>
   </div>
 </header>
 
@@ -46,6 +47,18 @@
       <button class="btn primary" id="focusReveal">显示答案</button>
       <button class="btn ghost" id="focusNext">下一张</button>
     </div>
+  </div>
+</div>
+
+<div id="lockOverlay" class="lock-overlay" role="dialog" aria-modal="true" aria-label="访问口令">
+  <div class="lock-card">
+    <div class="lock-ico">🔒</div>
+    <h1>初一上复习站</h1>
+    <p class="lock-sub">内部复习资料 · 含参考答案，请输入访问口令</p>
+    <input id="lockInput" type="password" placeholder="访问口令" autocomplete="current-password" maxlength="24">
+    <button class="btn primary" id="lockBtn">进入复习站</button>
+    <p id="lockMsg" class="lock-msg" aria-live="polite"></p>
+    <p class="lock-note">口令仅在本机校验，解锁状态保存在此浏览器；可在右上角 🔒 锁定。</p>
   </div>
 </div>
 

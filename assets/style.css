@@ -312,6 +312,47 @@ th { background: var(--bg-soft); font-weight: 650; }
 .qa-item .qa-ans summary { padding: 9px 14px; font-size: 13.5px; color: var(--accent); font-weight: 600; }
 .qa-item .qa-ans .a-body { padding: 10px 14px 12px; }
 
+/* ---------- 访问口令门 ---------- */
+.lock-overlay {
+  position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+  background: var(--bg); padding: 20px;
+}
+.lock-card {
+  width: min(420px, 100%); padding: 34px 30px 28px; text-align: center;
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
+}
+.lock-ico { font-size: 40px; line-height: 1; margin-bottom: 12px; }
+.lock-card h1 { font-size: 22px; margin: 0 0 6px; }
+.lock-sub { color: var(--muted); font-size: 13.5px; margin: 0 0 22px; }
+.lock-card input {
+  width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px; text-align: center;
+  border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg-soft); color: var(--ink);
+  letter-spacing: 2px;
+}
+.lock-card input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.lock-card .btn { width: 100%; margin-top: 12px; padding: 11px; font-size: 15px; }
+.lock-msg { min-height: 20px; margin: 10px 0 0; color: #dc2626; font-size: 13px; }
+.lock-note { margin: 14px 0 0; color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+
+/* ---------- 专项刷练 ---------- */
+.skill-entry {
+  display: flex; align-items: center; gap: 14px; margin: 18px 0 4px; padding: 14px 18px;
+  background: linear-gradient(100deg, var(--card), var(--card-2)); border: 1px solid var(--line-strong);
+  border-radius: var(--radius); box-shadow: var(--shadow); color: var(--ink);
+}
+.skill-entry:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-2px); }
+.se-ico { font-size: 28px; flex: 0 0 auto; }
+.se-txt { flex: 1 1 auto; min-width: 0; }
+.se-txt b { display: block; font-size: 15px; margin-bottom: 2px; }
+.se-txt small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.55; }
+.se-arrow { color: var(--accent); font-size: 20px; flex: 0 0 auto; }
+.skill-tabs { margin-bottom: 4px; }
+.skill-foot { margin: 22px 0 40px; }
+@media (max-width: 600px) {
+  .skill-entry { padding: 12px 14px; gap: 10px; }
+  .se-ico { font-size: 22px; }
+}
+
 /* ---------- 页脚 / 回顶 ---------- */
 .footer { border-top: 1px solid var(--line); padding: 20px clamp(12px, 3vw, 24px) 34px; text-align: center; color: var(--muted); font-size: 12px; }
 .footer p { margin: 3px 0; }

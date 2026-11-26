@@ -2,6 +2,44 @@
 (function () {
   'use strict';
 
+  /* ---------------- 访问口令门（前端门槛，非服务端鉴权） ----------------
+     源码只保存口令哈希，不保存明文；验证通过后把「已解锁」标记写入本机 localStorage。
+     注意：纯静态站点无法做到真正的权限控制，此方法仅拦住随手打开的人。 */
+  var GATE_STORE = 'chu1_gate_v1';
+  var GATE_HASH = 1226898545; // djb2 口令哈希；修改口令时替换此值
+  function gateHash(str) {
+    var h = 5381;
+    for (var i = 0; i < str.length; i++) h = ((h * 33) + str.charCodeAt(i)) >>> 0;
+    return h >>> 0;
+  }
+  function gateUnlocked() {
+    try { return localStorage.getItem(GATE_STORE) === String(GATE_HASH); } catch (e) { return false; }
+  }
+  function gateInit() {
+    var lock = document.getElementById('lockOverlay');
+    if (!lock) return true;
+    if (gateUnlocked()) { lock.parentNode.removeChild(lock); return true; }
+    var input = document.getElementById('lockInput');
+    var btn = document.getElementById('lockBtn');
+    var msg = document.getElementById('lockMsg');
+    function tryUnlock() {
+      if (gateHash(input.value) === GATE_HASH) {
+        try { localStorage.setItem(GATE_STORE, String(GATE_HASH)); } catch (e) {}
+        msg.textContent = '';
+        location.reload(); // 重新执行 IIFE，此时 gateInit 直接放行并初始化应用
+        return true;
+      }
+      msg.textContent = '口令不正确，请重试';
+      input.value = ''; input.focus();
+      return false;
+    }
+    btn.addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+    input.focus();
+    return false;
+  }
+  if (!gateInit()) return; // 未解锁：不初始化应用，页面只有锁屏
+
   var REPO_URL = 'https://github.com/Enzo-River/chuyi-qizhong-review';
   var ORDER = ['bio', 'his', 'df', 'geo'];
   var D = window.REVIEW_DATA || {};
@@ -93,6 +131,14 @@
       SUBJECTS.reduce(function (n, s) { return n + s.sections.length; }, 0) + ' 个板块</p>' +
       '</section>' + progressBar(st);
 
+    var skillSubs = SUBJECTS.filter(function (x) { return x.sections.some(function (y) { return y.id === x.id + '-skill'; }); });
+    if (skillSubs.length) {
+      h += '<a class="skill-entry" href="#/skills">' +
+        '<span class="se-ico">🎯</span><span class="se-txt"><b>专项刷练 · 随时一页搞定</b>' +
+        '<small>生物实验识图 / 历史材料题 / 道法答题模板 / 地理气候图判读，四科专项集中在一页，点开即刷</small></span>' +
+        '<span class="se-arrow">→</span></a>';
+    }
+
     h += '<div class="grid">';
     SUBJECTS.forEach(function (sub) {
       var s = stats(sub.id), mcq = 0, notes = 0, quizCards = 0;
@@ -124,6 +170,7 @@
       '<li><b>刷题与对照</b>：原卷选择题与自编选择题均可即时判分；非选择题可展开看参考答案，地理每题附解析。</li>' +
       '<li><b>抽背</b>：道法必考卡、历史卡、地理卡可随机抽取、逐张标记已掌握。</li>' +
       '<li><b>看图复习</b>：原卷配图、历史 PPT 结构图已嵌回站内；地理配 10 张自制识图示意图，点图可放大。</li>' +
+      '<li><b>专项刷练</b>：首页顶部「专项刷练」入口把四科研判/实验/材料题模板集中在一页，切科不用返回。</li>' +
       '<li><b>查原件</b>：生物、历史、道法提供原 Word / PPT / PDF 下载；地理与期末新增内容为按教材自主整理，无校内原件。</li>' +
       '</ol></section></div>';
     return h;
@@ -337,6 +384,43 @@
                     cards: renderCards, timeline: renderTimeline, files: renderFiles,
                     gallery: renderGallery };
 
+  /* ---------------- 专项刷练聚合页 ---------------- */
+  function skillSections() {
+    var out = [];
+    SUBJECTS.forEach(function (sub) {
+      sub.sections.forEach(function (sec) {
+        if (sec.id === sub.id + '-skill' || /专项突破/.test(sec.title)) {
+          out.push({ sub: sub, sec: sec });
+        }
+      });
+    });
+    return out;
+  }
+
+  function renderSkills(active) {
+    var list = skillSections();
+    if (!list.length) return '<div class="wrap"><p class="muted">暂无专项板块。</p></div>';
+    if (!active) active = list[0].sec.id;
+    var cur = null;
+    list.forEach(function (x) { if (x.sec.id === active) cur = x; });
+    if (!cur) cur = list[0];
+
+    var h = '<div class="wrap"><div class="sub-head"><a class="back-link" href="#/">← 返回学科总览</a>' +
+      '<h1>🎯 专项刷练</h1><p>四科研判 / 实验 / 材料题方法集中在一页，随时切换、即开即刷。</p></div>' +
+      '<nav class="tabs skill-tabs">';
+    list.forEach(function (x) {
+      h += '<a class="tab ' + (x.sec.id === active ? 'active' : '') + '" href="#/skills/' + x.sec.id + '">' +
+        x.sub.emoji + ' ' + esc(x.sub.name) + ' · ' + esc(x.sec.title.replace(/^专项突破\s*·\s*/, '')) + '</a>';
+    });
+    h += '</nav><div class="section-head"><h2>' + esc(cur.sub.name) + ' · ' + esc(cur.sec.title) + '</h2><p>' +
+      esc(cur.sec.desc) + (cur.sec.source ? '　<span class="source-tag">来源：' + esc(cur.sec.source) + '</span>' : '') +
+      '</p></div>';
+    h += (RENDERERS[cur.sec.kind] || function () { return '<p class="muted">暂不支持的板块类型</p>'; })(cur.sec, cur.sub);
+    h += '<div class="skill-foot"><a class="btn ghost" href="#/' + cur.sub.id + '/final/' + cur.sec.id + '">在' + esc(cur.sub.name) + '学科页打开 →</a></div>';
+    h += '</div>';
+    return h;
+  }
+
   /* ---------------- 学科页 ---------------- */
   function renderSubject(sub, sec, scope) {
     var finals = hasFinal(sub);
@@ -375,6 +459,10 @@
     var parts = raw.split('/');
     var sub = null;
     SUBJECTS.forEach(function (s) { if (s.id === parts[0]) sub = s; });
+    if (parts[0] === 'skills') {
+      var firstSkill = skillSections();
+      return { sub: null, sec: null, scope: 'mid', skills: parts[1] || (firstSkill.length ? firstSkill[0].sec.id : '') };
+    }
     if (!sub) return { sub: null, sec: null, scope: 'mid' };
     var scope = 'mid', sec = null;
     if (parts[1] === 'final') {
@@ -386,21 +474,22 @@
       if (!sec) sec = sub.sections[0];
       scope = sec.scope === 'final' ? 'final' : 'mid';
     }
-    return { sub: sub, sec: sec, scope: scope };
+    return { sub: sub, sec: sec, scope: scope, skills: null };
   }
 
   var view = { sub: null, sec: null, masked: false, quizFilter: 'all', focusList: [], focusIdx: 0, focusMode: 'cards' };
 
   function render() {
     var r = currentRoute();
-    var routeKey = r.sub ? r.sub.id + '/' + r.sec.id : 'home';
-    var oldKey = view.sub ? view.sub.id + '/' + view.sec.id : 'home';
+    var routeKey = r.skills ? 'skills/' + r.skills : (r.sub ? r.sub.id + '/' + r.sec.id : 'home');
+    var oldKey = view.routeKey || 'home';
     var sameRoute = routeKey === oldKey;
     var y = sameRoute ? window.scrollY : 0;
+    view.routeKey = routeKey;
     view.sub = r.sub; view.sec = r.sec;
     if (!sameRoute) { view.masked = false; view.quizFilter = 'all'; }
-    el('app').innerHTML = r.sub ? renderSubject(r.sub, r.sec, r.scope) : renderHome();
-    document.title = (r.sub ? r.sub.name + ' · ' + (r.scope === 'final' ? '期末' : '期中') + ' · ' + r.sec.title + ' · ' : '') + '初一上 · 期中/期末复习';
+    el('app').innerHTML = r.skills ? renderSkills(r.skills) : (r.sub ? renderSubject(r.sub, r.sec, r.scope) : renderHome());
+    document.title = (r.skills ? '专项刷练 · ' : (r.sub ? r.sub.name + ' · ' + (r.scope === 'final' ? '期末' : '期中') + ' · ' + r.sec.title + ' · ' : '')) + '初一上 · 期中/期末复习';
     if (view.masked) {
       var ms = el('app').querySelectorAll('.maskable');
       for (var i = 0; i < ms.length; i++) ms[i].classList.add('masked');
@@ -595,6 +684,11 @@
     applyTheme(t); S.theme = t; saveState();
   });
   el('githubLink').href = REPO_URL;
+  if (el('lockBtnTop')) el('lockBtnTop').addEventListener('click', function () {
+    if (!confirm('锁定本站？下次打开需要重新输入口令。')) return;
+    try { localStorage.removeItem(GATE_STORE); } catch (e) {}
+    location.reload();
+  });
   el('backTop').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
   el('focusClose').addEventListener('click', closeFocus);
   el('focusOverlay').addEventListener('click', function (e) { if (e.target === this) closeFocus(); });
