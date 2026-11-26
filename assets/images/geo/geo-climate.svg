@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="660" viewBox="0 0 720 660" font-family="Arial, 'Microsoft YaHei', sans-serif">
+<rect width="720" height="660" fill="#ffffff"/>
+<text x="24" y="32" font-size="20" font-weight="bold" fill="#1f2937">世界主要气候类型 · 纬度与海陆分布规律（自制示意）</text>
+<text x="24" y="54" font-size="13" fill="#6b7280">同一纬度带上，大陆西岸、内陆、东岸的气候类型不同；判读气候图先「以温定带」，再「以水定型」</text>
+<text x="240.0" y="78" font-size="12" fill="#475569" text-anchor="middle">大陆西岸</text>
+<text x="420.0" y="78" font-size="12" fill="#475569" text-anchor="middle">大陆内部</text>
+<text x="600.0" y="78" font-size="12" fill="#475569" text-anchor="middle">大陆东岸</text>
+<rect x="150.0" y="90.0" width="180.0" height="31.4" fill="#e2e8f0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="109.7" font-size="11.5" fill="#1f2937" text-anchor="middle">寒带</text>
+<rect x="330.0" y="90.0" width="180.0" height="31.4" fill="#e2e8f0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="109.7" font-size="11.5" fill="#1f2937" text-anchor="middle">寒带</text>
+<rect x="510.0" y="90.0" width="180.0" height="31.4" fill="#e2e8f0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="109.7" font-size="11.5" fill="#1f2937" text-anchor="middle">寒带</text>
+<rect x="150.0" y="121.4" width="180.0" height="47.1" fill="#a7f3d0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="149.0" font-size="11.5" fill="#1f2937" text-anchor="middle">亚寒带针叶林</text>
+<rect x="330.0" y="121.4" width="180.0" height="47.1" fill="#a7f3d0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="149.0" font-size="11.5" fill="#1f2937" text-anchor="middle">亚寒带针叶林</text>
+<rect x="510.0" y="121.4" width="180.0" height="47.1" fill="#a7f3d0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="149.0" font-size="11.5" fill="#1f2937" text-anchor="middle">亚寒带针叶林</text>
+<rect x="150.0" y="168.6" width="180.0" height="31.4" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="188.3" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<rect x="330.0" y="168.6" width="180.0" height="31.4" fill="#fef08a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="188.3" font-size="11.5" fill="#1f2937" text-anchor="middle">温带大陆性</text>
+<rect x="510.0" y="168.6" width="180.0" height="31.4" fill="#bfdbfe" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="188.3" font-size="11.5" fill="#1f2937" text-anchor="middle">温带季风</text>
+<rect x="150.0" y="200.0" width="180.0" height="31.4" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="219.7" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<rect x="330.0" y="200.0" width="180.0" height="31.4" fill="#fef08a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="219.7" font-size="11.5" fill="#1f2937" text-anchor="middle">温带大陆性</text>
+<rect x="510.0" y="200.0" width="180.0" height="31.4" fill="#bfdbfe" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="219.7" font-size="11.5" fill="#1f2937" text-anchor="middle">温带季风</text>
+<rect x="150.0" y="231.4" width="180.0" height="15.7" fill="#fed7aa" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="243.3" font-size="11.5" fill="#1f2937" text-anchor="middle">地中海气候</text>
+<rect x="330.0" y="231.4" width="180.0" height="15.7" fill="#fef08a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="243.3" font-size="11.5" fill="#1f2937" text-anchor="middle">温带大陆性</text>
+<rect x="510.0" y="231.4" width="180.0" height="15.7" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="243.3" font-size="11.5" fill="#1f2937" text-anchor="middle">亚热带季风</text>
+<rect x="150.0" y="247.1" width="180.0" height="31.4" fill="#fde68a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="266.9" font-size="11.5" fill="#1f2937" text-anchor="middle">热带沙漠</text>
+<rect x="330.0" y="247.1" width="180.0" height="31.4" fill="#fde68a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="266.9" font-size="11.5" fill="#1f2937" text-anchor="middle">热带沙漠</text>
+<rect x="510.0" y="247.1" width="180.0" height="31.4" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="266.9" font-size="11.5" fill="#1f2937" text-anchor="middle">亚热带季风</text>
+<rect x="150.0" y="278.6" width="180.0" height="31.4" fill="#d9f99d" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="298.3" font-size="11.5" fill="#1f2937" text-anchor="middle">热带草原</text>
+<rect x="330.0" y="278.6" width="180.0" height="31.4" fill="#d9f99d" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="298.3" font-size="11.5" fill="#1f2937" text-anchor="middle">热带草原</text>
+<rect x="510.0" y="278.6" width="180.0" height="31.4" fill="#99f6e4" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="298.3" font-size="11.5" fill="#1f2937" text-anchor="middle">热带季风</text>
+<rect x="150.0" y="310.0" width="180.0" height="62.9" fill="#bbf7d0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="332.4" font-size="11.5" fill="#1f2937" text-anchor="middle">热带雨林</text>
+<rect x="330.0" y="310.0" width="180.0" height="62.9" fill="#bbf7d0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="332.4" font-size="11.5" fill="#1f2937" text-anchor="middle">热带雨林</text>
+<rect x="510.0" y="310.0" width="180.0" height="62.9" fill="#bbf7d0" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="332.4" font-size="11.5" fill="#1f2937" text-anchor="middle">热带雨林</text>
+<rect x="150.0" y="372.9" width="180.0" height="31.4" fill="#d9f99d" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="392.6" font-size="11.5" fill="#1f2937" text-anchor="middle">热带草原</text>
+<rect x="330.0" y="372.9" width="180.0" height="31.4" fill="#d9f99d" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="392.6" font-size="11.5" fill="#1f2937" text-anchor="middle">热带草原</text>
+<rect x="510.0" y="372.9" width="180.0" height="31.4" fill="#d9f99d" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="392.6" font-size="11.5" fill="#1f2937" text-anchor="middle">热带草原</text>
+<rect x="150.0" y="404.3" width="180.0" height="31.4" fill="#fde68a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="424.0" font-size="11.5" fill="#1f2937" text-anchor="middle">热带沙漠</text>
+<rect x="330.0" y="404.3" width="180.0" height="31.4" fill="#d9f99d" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="424.0" font-size="11.5" fill="#1f2937" text-anchor="middle">热带草原</text>
+<rect x="510.0" y="404.3" width="180.0" height="31.4" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="424.0" font-size="11.5" fill="#1f2937" text-anchor="middle">亚热带季风</text>
+<rect x="150.0" y="435.7" width="180.0" height="31.4" fill="#fed7aa" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="455.4" font-size="11.5" fill="#1f2937" text-anchor="middle">地中海气候</text>
+<rect x="330.0" y="435.7" width="180.0" height="31.4" fill="#fef08a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="455.4" font-size="11.5" fill="#1f2937" text-anchor="middle">温带大陆性</text>
+<rect x="510.0" y="435.7" width="180.0" height="31.4" fill="#86efac" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="455.4" font-size="11.5" fill="#1f2937" text-anchor="middle">亚热带季风</text>
+<rect x="150.0" y="467.1" width="180.0" height="47.1" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="494.7" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<rect x="330.0" y="467.1" width="180.0" height="47.1" fill="#fef08a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="494.7" font-size="11.5" fill="#1f2937" text-anchor="middle">温带大陆性</text>
+<rect x="510.0" y="467.1" width="180.0" height="47.1" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="494.7" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<rect x="150.0" y="514.3" width="180.0" height="15.7" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="240.0" y="526.1" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<rect x="330.0" y="514.3" width="180.0" height="15.7" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="420.0" y="526.1" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<rect x="510.0" y="514.3" width="180.0" height="15.7" fill="#bae6fd" stroke="#ffffff" stroke-width="1.5"/>
+<text x="600.0" y="526.1" font-size="11.5" fill="#1f2937" text-anchor="middle">温带海洋性</text>
+<line x1="144" y1="90.0" x2="150" y2="90.0" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="94.0" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">80°N</text>
+<line x1="144" y1="121.4" x2="150" y2="121.4" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="125.4" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">70°N</text>
+<line x1="144" y1="152.9" x2="150" y2="152.9" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="156.9" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">60°N</text>
+<line x1="144" y1="184.3" x2="150" y2="184.3" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="188.3" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">50°N</text>
+<line x1="144" y1="215.7" x2="150" y2="215.7" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="219.7" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">40°N</text>
+<line x1="144" y1="247.1" x2="150" y2="247.1" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="251.1" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">30°N</text>
+<line x1="144" y1="278.6" x2="150" y2="278.6" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="282.6" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">20°N</text>
+<line x1="144" y1="310.0" x2="150" y2="310.0" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="314.0" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">10°N</text>
+<line x1="144" y1="341.4" x2="150" y2="341.4" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="345.4" font-size="11" fill="#dc2626" text-anchor="end" font-weight="bold">0° 赤道</text>
+<line x1="144" y1="372.9" x2="150" y2="372.9" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="376.9" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">10°S</text>
+<line x1="144" y1="404.3" x2="150" y2="404.3" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="408.3" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">20°S</text>
+<line x1="144" y1="435.7" x2="150" y2="435.7" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="439.7" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">30°S</text>
+<line x1="144" y1="467.1" x2="150" y2="467.1" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="471.1" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">40°S</text>
+<line x1="144" y1="498.6" x2="150" y2="498.6" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="502.6" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">50°S</text>
+<line x1="144" y1="530.0" x2="150" y2="530.0" stroke="#cbd5e1" stroke-width="1"/>
+<text x="140" y="534.0" font-size="11" fill="#475569" text-anchor="end" font-weight="normal">60°S</text>
+<line x1="150" y1="341.4" x2="690" y2="341.4" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="24" y="563" font-size="12" fill="#475569">图例</text>
+<rect x="76" y="552" width="14" height="12" fill="#bbf7d0" stroke="#cbd5e1"/>
+<text x="95" y="562" font-size="11.5" fill="#475569">热带雨林</text>
+<rect x="200" y="552" width="14" height="12" fill="#d9f99d" stroke="#cbd5e1"/>
+<text x="219" y="562" font-size="11.5" fill="#475569">热带草原</text>
+<rect x="324" y="552" width="14" height="12" fill="#fde68a" stroke="#cbd5e1"/>
+<text x="343" y="562" font-size="11.5" fill="#475569">热带沙漠</text>
+<rect x="448" y="552" width="14" height="12" fill="#99f6e4" stroke="#cbd5e1"/>
+<text x="467" y="562" font-size="11.5" fill="#475569">热带季风</text>
+<rect x="572" y="552" width="14" height="12" fill="#86efac" stroke="#cbd5e1"/>
+<text x="591" y="562" font-size="11.5" fill="#475569">亚热带季风</text>
+<rect x="76" y="578" width="14" height="12" fill="#fed7aa" stroke="#cbd5e1"/>
+<text x="95" y="588" font-size="11.5" fill="#475569">地中海气候</text>
+<rect x="200" y="578" width="14" height="12" fill="#bfdbfe" stroke="#cbd5e1"/>
+<text x="219" y="588" font-size="11.5" fill="#475569">温带季风</text>
+<rect x="324" y="578" width="14" height="12" fill="#fef08a" stroke="#cbd5e1"/>
+<text x="343" y="588" font-size="11.5" fill="#475569">温带大陆性</text>
+<rect x="448" y="578" width="14" height="12" fill="#bae6fd" stroke="#cbd5e1"/>
+<text x="467" y="588" font-size="11.5" fill="#475569">温带海洋性</text>
+<rect x="572" y="578" width="14" height="12" fill="#e2e8f0" stroke="#cbd5e1"/>
+<text x="591" y="588" font-size="11.5" fill="#475569">寒带</text>
+<text x="24" y="642" font-size="12" fill="#92400e">说明：仅为气候类型分布的规律示意图，不表示真实海陆轮廓与面积；具体分布以教材地图为准。</text>
+</svg>

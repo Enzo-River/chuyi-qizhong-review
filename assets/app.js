@@ -37,6 +37,19 @@
   }
   function itemId(sub, sec, i) { return sub + '/' + sec + '/' + i; }
 
+  /* ---------------- 期中 / 期末 两个范围 ---------------- */
+  function hasFinal(sub) {
+    return sub.sections.some(function (s) { return s.scope === 'final'; });
+  }
+  function visibleSections(sub, scope) {
+    var final_ = sub.sections.filter(function (s) { return s.scope === 'final'; });
+    var mid = sub.sections.filter(function (s) { return s.scope !== 'final'; });
+    return scope === 'final' ? final_.concat(mid) : mid;
+  }
+  function secHref(sub, s) {
+    return '#/' + sub.id + (s.scope === 'final' ? '/final/' + s.id : '/' + s.id);
+  }
+
   /* ---------------- 进度统计 ---------------- */
   function stats(subjectId) {
     var total = 0, done = 0, quizTotal = 0, cards = 0, fills = 0;
@@ -74,9 +87,9 @@
   function renderHome() {
     var st = stats();
     var h = '<div class="wrap"><section class="hero">' +
-      '<h1>初一上 · 期中在线复习</h1>' +
+      '<h1>初一上 · 期中/期末在线复习</h1>' +
       '<p class="lead">生物 · 历史 · 道法 · 地理　四科资料分门别类，边看边测，随时抽背。</p>' +
-      '<p class="meta">生物 / 历史 / 道法整理自 2026-2027 学年期中复习资料，地理按湘教版 2024 版教材自主整理　·　共 ' + SUBJECTS.length + ' 科 / ' +
+      '<p class="meta">每科都分「期中范围」与「期末全册」两个入口；期末新增章节为自主整理，逐题答案以教材与老师课堂讲授为准　·　共 ' + SUBJECTS.length + ' 科 / ' +
       SUBJECTS.reduce(function (n, s) { return n + s.sections.length; }, 0) + ' 个板块</p>' +
       '</section>' + progressBar(st);
 
@@ -90,24 +103,28 @@
       });
       var third = mcq ? '<span><b>' + mcq + '</b> 道选择题</span>'
         : '<span><b>' + quizCards + '</b> 张抽背卡</span>';
-      h += '<a class="subject-card" style="--sub-color:' + esc(sub.color) + '" href="#/' + sub.id + '">' +
+      var href = '#' + '/' + sub.id + (hasFinal(sub) ? '/final' : '');
+      h += '<a class="subject-card" style="--sub-color:' + esc(sub.color) + '" href="' + href + '">' +
         '<span class="sc-emoji">' + sub.emoji + '</span>' +
         '<h2>' + esc(sub.name) + '</h2>' +
         '<p class="sc-sub">' + esc(sub.sub) + '</p>' +
         '<p class="sc-desc">' + esc(sub.desc) + '</p>' +
         '<div class="sc-stats"><span><b>' + sub.sections.length + '</b> 个板块</span>' +
         '<span><b>' + notes + '</b> 组知识要点</span>' + third +
-        '<span>已掌握 <b>' + s.done + '/' + s.total + '</b></span></div></a>';
+        '<span>已掌握 <b>' + s.done + '/' + s.total + '</b></span></div>' +
+        (hasFinal(sub) ? '<div class="sc-scope"><span class="pill on">期末全册</span><span class="pill">期中范围</span></div>' : '') +
+        '</a>';
     });
     h += '</div>';
 
     h += '<section class="howto"><h3>怎么用</h3><ol>' +
+      '<li><b>先选范围</b>：学科页顶部可切「期中范围 / 期末全册」。期末全册里，前面是新增章节，末尾「期中回顾」是已复习过的板块。</li>' +
       '<li><b>先看知识提纲</b>：按章节折叠展开，点「遮罩速记」盖住要点边回忆边对照。</li>' +
-      '<li><b>再自测</b>：生物填空由「空白版 ↔ 答案版」逐行比对生成；地理另配 45 空填空、52 张抽背卡。</li>' +
-      '<li><b>刷题与对照</b>：生物、道法原卷选择题与地理自编选择题可即时判分；非选择题可展开看参考答案，地理每题附解析。</li>' +
-      '<li><b>抽背</b>：道法必考 20 题、历史 42 张卡、地理 52 张卡，可随机抽取、逐张标记已掌握。</li>' +
-      '<li><b>看图复习</b>：生物 / 道法原卷配图、历史 PPT 整页结构图已嵌回站内；地理另配 6 张自制识图示意图，点图可放大。</li>' +
-      '<li><b>查原件</b>：生物、历史、道法提供原 Word / PPT / PDF 下载；地理为按教材自主整理，无校内原件。</li>' +
+      '<li><b>再自测</b>：生物填空由「空白版 ↔ 答案版」逐行比对生成；地理、道法另配知识点填空与抽背卡。</li>' +
+      '<li><b>刷题与对照</b>：原卷选择题与自编选择题均可即时判分；非选择题可展开看参考答案，地理每题附解析。</li>' +
+      '<li><b>抽背</b>：道法必考卡、历史卡、地理卡可随机抽取、逐张标记已掌握。</li>' +
+      '<li><b>看图复习</b>：原卷配图、历史 PPT 结构图已嵌回站内；地理配 10 张自制识图示意图，点图可放大。</li>' +
+      '<li><b>查原件</b>：生物、历史、道法提供原 Word / PPT / PDF 下载；地理与期末新增内容为按教材自主整理，无校内原件。</li>' +
       '</ol></section></div>';
     return h;
   }
@@ -321,12 +338,27 @@
                     gallery: renderGallery };
 
   /* ---------------- 学科页 ---------------- */
-  function renderSubject(sub, sec) {
+  function renderSubject(sub, sec, scope) {
+    var finals = hasFinal(sub);
+    var list = visibleSections(sub, scope);
     var h = '<div class="wrap"><div class="sub-head"><a class="back-link" href="#/">← 返回学科总览</a>' +
-      '<h1>' + sub.emoji + '　' + esc(sub.name) + '</h1><p>' + esc(sub.sub) + '</p></div>' +
-      '<nav class="tabs">';
-    sub.sections.forEach(function (s) {
-      h += '<a class="tab ' + (s.id === sec.id ? 'active' : '') + '" href="#/' + sub.id + '/' + s.id + '">' +
+      '<h1>' + sub.emoji + '　' + esc(sub.name) + '</h1><p>' + esc(sub.sub) + '</p>';
+    if (finals) {
+      h += '<div class="scope-switch">' +
+        '<a class="' + (scope === 'final' ? '' : 'on') + '" href="#/' + sub.id + '">期中范围</a>' +
+        '<a class="' + (scope === 'final' ? 'on' : '') + '" href="#/' + sub.id + '/final">期末全册</a>' +
+        '</div>' +
+        '<p class="scope-hint">' + (scope === 'final'
+          ? '期末按全册复习：前 ' + list.filter(function (s) { return s.scope === 'final'; }).length +
+            ' 个板块是新增内容，末尾「期中回顾」为已复习板块，可快速过一遍。'
+          : '当前只看期中范围；点「期末全册」可查看新增章节、全册串讲与模拟卷。') + '</p>';
+    }
+    h += '</div><nav class="tabs">';
+    list.forEach(function (s, i) {
+      if (scope === 'final' && s.scope !== 'final' && (i === 0 || list[i - 1].scope === 'final')) {
+        h += '<span class="tab-sep">期中回顾</span>';
+      }
+      h += '<a class="tab ' + (s.id === sec.id ? 'active' : '') + '" href="' + secHref(sub, s) + '">' +
         s.icon + ' ' + esc(s.title) + '</a>';
     });
     h += '</nav><div class="section-head"><h2>' + esc(sec.title) + '</h2><p>' + esc(sec.desc) +
@@ -343,10 +375,18 @@
     var parts = raw.split('/');
     var sub = null;
     SUBJECTS.forEach(function (s) { if (s.id === parts[0]) sub = s; });
-    if (!sub) return { sub: null, sec: null };
-    var sec = null;
-    sub.sections.forEach(function (s) { if (s.id === parts[1]) sec = s; });
-    return { sub: sub, sec: sec || sub.sections[0] };
+    if (!sub) return { sub: null, sec: null, scope: 'mid' };
+    var scope = 'mid', sec = null;
+    if (parts[1] === 'final') {
+      scope = 'final';
+      sub.sections.forEach(function (s) { if (s.id === parts[2] && s.scope === 'final') sec = s; });
+      if (!sec) sec = visibleSections(sub, 'final')[0] || sub.sections[0];
+    } else {
+      sub.sections.forEach(function (s) { if (s.id === parts[1]) sec = s; });
+      if (!sec) sec = sub.sections[0];
+      scope = sec.scope === 'final' ? 'final' : 'mid';
+    }
+    return { sub: sub, sec: sec, scope: scope };
   }
 
   var view = { sub: null, sec: null, masked: false, quizFilter: 'all', focusList: [], focusIdx: 0, focusMode: 'cards' };
@@ -359,8 +399,8 @@
     var y = sameRoute ? window.scrollY : 0;
     view.sub = r.sub; view.sec = r.sec;
     if (!sameRoute) { view.masked = false; view.quizFilter = 'all'; }
-    el('app').innerHTML = r.sub ? renderSubject(r.sub, r.sec) : renderHome();
-    document.title = (r.sub ? r.sub.name + ' · ' + r.sec.title + ' · ' : '') + '初一上 · 期中在线复习';
+    el('app').innerHTML = r.sub ? renderSubject(r.sub, r.sec, r.scope) : renderHome();
+    document.title = (r.sub ? r.sub.name + ' · ' + (r.scope === 'final' ? '期末' : '期中') + ' · ' + r.sec.title + ' · ' : '') + '初一上 · 期中/期末复习';
     if (view.masked) {
       var ms = el('app').querySelectorAll('.maskable');
       for (var i = 0; i < ms.length; i++) ms[i].classList.add('masked');
@@ -378,6 +418,7 @@
       sub.sections.forEach(function (sec) {
         var add = function (text) {
           if (text && String(text).trim()) SEARCH.push({ sub: sub.id, sec: sec.id,
+            href: secHref(sub, sec),
             subName: sub.name, secTitle: sec.title, text: String(text).replace(/\s+/g, ' ').trim() });
         };
         if (sec.kind === 'notes') sec.groups.forEach(function (g) {
@@ -419,7 +460,7 @@
     box.innerHTML = hits.map(function (h) {
       var pos = Math.max(0, h.text.toLowerCase().indexOf(low) - 40);
       var snip = (pos ? '…' : '') + h.text.slice(pos, pos + 190) + (h.text.length > pos + 190 ? '…' : '');
-      return '<a class="search-hit" href="#/' + h.sub + '/' + h.sec + '" data-close-search="1">' +
+      return '<a class="search-hit" href="' + h.href + '" data-close-search="1">' +
         '<div class="hit-top">' + esc(h.subName) + ' · ' + esc(h.secTitle) + '</div>' +
         '<div class="hit-txt">' + highlight(snip, q) + '</div></a>';
     }).join('');
